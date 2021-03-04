@@ -1,0 +1,62 @@
+@import "~bootstrap/scss/bootstrap";
+html, body{
+    background-color: #343A40;
+}
+
+.big-checkbox {
+    width: 15px; 
+    height: 15px;
+}
+
+.note{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    strong{
+        margin-right: 1rem;
+    }
+}
+.mt-1{
+    margin-top: .4rem !important;
+}
+
+.label:hover{
+    cursor: pointer;
+}
+
+.alert-enter{
+    opacity: 0;
+}
+
+.alert-enter-active{
+    opacity: 1;
+    transition: opacity 500ms ease-out;
+}
+
+.alert-exit-active{
+    opacity: 0;
+    transition: opacity 350ms ease-out;
+}
+
+.note-exit-active{
+    animation: note 1s ease-out forwards;
+}
+
+.note-enter-active{
+    animation: note 800ms ease-out alternate-reverse;
+}
+
+@keyframes note{
+    0%{
+        transform: translateX(0);
+    }
+    30%{
+        opacity: 70%;
+        transform: translateX(30px);
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+}
