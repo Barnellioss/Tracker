@@ -1,0 +1,121 @@
+
+.big-checkbox {
+    width: 15px; 
+    height: 15px;
+}
+
+.container{
+    max-width: 560px;
+    padding: 0 15px;
+    min-width: 320px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.header{
+    text-align: center;
+}
+
+.note{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group{
+    margin: 10px 0;
+}
+
+.label:hover{
+    cursor: pointer;
+}
+
+.ant-list-items{
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.note-exit-active{
+    animation: note 1s ease-out forwards;
+}
+
+.note-enter-active{
+    animation: note 800ms ease-out alternate-reverse;
+}
+
+@keyframes note{
+    0%{
+        transform: translateX(0);
+    }
+    30%{
+        opacity: 70%;
+        transform: translateX(30px);
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(-200px);
+    }
+
+}
+
+.delete__btn{
+    margin-bottom: 1px;
+}
+
+
+h4.ant-list-item-meta-title{
+    margin-bottom: 4px;
+}
+
+.ant-list-item-meta-title p{
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.paragraph{
+    width: 300px;
+    overflow-x: hidden;
+}
+
+
+
+@media (max-width: 900px) {
+    .delete__btn{
+      margin-bottom: 6px;
+    }
+    .paragraph{
+        overflow-x: scroll;
+    }
+}
+
+
+@media(max-width:600px){
+    .container{
+        max-width: 380px;
+    }
+    .paragraph{
+        width: 150px;
+    }
+}
+
+
+@media(max-width:480px){
+    .container{
+        max-width: 320px;
+    }
+    .ant-list-item{
+        flex-wrap: nowrap;
+        padding: 12px 10px;
+        width: 290px;
+    }
+    .Stopwatch{
+        width: 248px;
+    }
+    .delete__btn{
+        margin-bottom: 6px;
+    }
+    .paragraph{
+        width: 280px;
+    }
+}

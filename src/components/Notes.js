@@ -1,34 +1,43 @@
-import React, { useContext, useState } from 'react'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import { AlertContext } from '../context/alert/alertContext'
-import { FirebaseContext } from '../context/firebase/firebaseContext'
+import React, { useState } from 'react'
+import { List } from 'antd';
+import Stopwatch from './timer/timer'
+import "../styles/index.scss"
+import { MinusCircleOutlined } from '@ant-design/icons';
 
-export const Notes = ({ notes, onRemove }) => {
+export const Notes = React.memo(({ notes, deleteNote }) => {
 
     const [value, setDanger] = useState('')
-    const alert = useContext(AlertContext)
 
     if (value.trim()) {
-        onRemove(value).then(() => {
-            alert.show('Note has been deleted', 'danger')
-        })
-        setDanger('')
+        deleteNote(value).then(() => setDanger(''))
     }
 
+
     return (
-        <TransitionGroup className="list-group" component={'ul'}>
-            {notes.map(note => (
-                <CSSTransition classNames={'note'} timeout={800} key={note.id}>
-                    <li key={note + 1} className="list-group-item note bg-dark">
-                        <div className="d-flex aligh-items-center form-check">
-                            <input className="form-check-input big-checkbox" type="checkbox" value="" id={note.id} />
-                            <label htmlFor={note.id} className="text-white mr-3 fs-4 fw-normal font-Segoe-UI label">{note.title}</label>
-                            <label htmlFor={note.id} className="text-white mr-1 font-Segoe-UI label">{note.date}</label>
-                        </div>
-                        <button onClick={() => setDanger(note.id)} type="button" className="btn btn-outline-danger btn-sm">&times;</button>
-                    </li>
-                </CSSTransition>
-            ))}
-        </TransitionGroup>
+        <List
+            itemLayout="horizontal"
+            dataSource={notes}
+            renderItem={note => (
+                <List.Item className='note note-enter-active'>
+                    <div className="paragraph">
+                        {note.startStop[0].stopped ?
+                            <List.Item.Meta
+                                className="list-group-item"
+                                title={<p style={{ color: '#000' }}>{note.title}</p>}
+                            />
+                            :
+                            <List.Item.Meta
+                                className="list-group-item"
+                                title={<p style={{ color: '#59B87D' }}>{note.title}</p>}
+                            />
+                        }
+                    </div>
+                    <Stopwatch note={note} />
+                    <MinusCircleOutlined style={{ fontSize: '18px', color: '#D46F7F' }} className="delete__btn" onClick={() => setDanger(note.id)} type="button" />
+                </List.Item>
+            )}
+        />
     )
 }
+)
+

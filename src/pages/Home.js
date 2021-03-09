@@ -1,24 +1,44 @@
-import React, { Fragment, useContext, useEffect } from 'react'
-import { Form } from '../components/Form'
-import { Loader } from '../components/Loader'
+import React, { Fragment, PureComponent, } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
+import Form from '../components/Form'
 import { Notes } from '../components/Notes'
-import { FirebaseContext } from '../context/firebase/firebaseContext'
+import { addNote, fetchNotes, removeNote } from '../redux/firebaseReducer'
+import { Typography } from 'antd';
+import '.././styles/index.scss';
 
 
-export const Home = () => {
-    const { notes, danger, fetchNotes, loading,  removeNote} = useContext(FirebaseContext)
-    useEffect(() => { 
-        fetchNotes()
+const { Title } = Typography;
+
+class Home extends PureComponent {
+    
+    componentDidMount() {
+        this.props.setNotes()
         // eslint-disable-next-line
-    }, [])
-    return (
-        <Fragment>
-            <Form />
-            <hr />
-            {loading ? <Loader />
-                :
-                <Notes notes={notes} danger={danger} onRemove={removeNote} />
-            }
-        </Fragment>
-    )
+    }
+
+    componentDidUpdate(){
+        this.props.setNotes()
+    }
+   
+    render() {
+        return (
+            <Fragment>
+                <Title className="header">Tracker</Title>
+                <Form createNote={this.props.createNote} />
+                <hr />
+                <Notes notes={this.props.notes} deleteNote={this.props.deleteNote} danger={this.props.danger} />
+            </Fragment>
+        )
+    }
 }
+
+
+const mapStateToProps = (state) => {
+    return {
+        notes: state.fireBaseState.notes,
+        danger: state.fireBaseState.danger,
+    }
+}
+
+export default compose(connect(mapStateToProps, { setNotes: fetchNotes, createNote: addNote, deleteNote: removeNote }))(Home)

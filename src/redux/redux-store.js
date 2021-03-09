@@ -1,10 +1,15 @@
-/*import React from 'react'
-import { combineReducers, createStore } from 'redux'
-import toDoReducer from './toDoReducer';
+import {applyMiddleware, combineReducers, createStore } from 'redux'
+import thunkMiddleware from "redux-thunk";
+import firebaseReducer from './firebaseReducer';
 
-let store = createStore(toDoReducer)
+
+let reducers = combineReducers({
+    fireBaseState: firebaseReducer, 
+})
+
+let store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 window.store = store
 
 export default store;
-*/
+
