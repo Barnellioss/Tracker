@@ -1,6 +1,6 @@
 import axios from 'axios'
 import moment from 'moment';
-import { ADD_NOTE, FETCH_NOTES, REACT_APP_DB_URL, REMOVE_NOTE, RESUME_TIMER, STOP_TIMER, RESET_TIMER } from '../context/types'
+import { ADD_NOTE, FETCH_NOTES, REACT_APP_DB_URL, REMOVE_NOTE, RESUME_TIMER, STOP_TIMER, RESET_TIMER } from './types'
 
 let initialState = {
     notes: [],
