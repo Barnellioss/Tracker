@@ -11,16 +11,19 @@ import '.././styles/index.scss';
 const { Title } = Typography;
 
 class Home extends PureComponent {
-    
+
     componentDidMount() {
         this.props.setNotes()
         // eslint-disable-next-line
     }
 
-    componentDidUpdate(){
-        this.props.setNotes()
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state != prevState && this.props != prevProps) {
+            this.props.setNotes()
+        }
     }
-   
+
     render() {
         return (
             <Fragment>
