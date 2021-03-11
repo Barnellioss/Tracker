@@ -17,20 +17,16 @@ class Home extends PureComponent {
         // eslint-disable-next-line
     }
 
+    componentWillUnmount(){}
 
-    componentDidUpdate(prevProps, prevState) {
-        if (this.props != prevProps) {
-            this.props.setNotes()
-        }
-    }
-
+    
     render() {
         return (
             <Fragment>
                 <Title className="header">Tracker</Title>
                 <Form createNote={this.props.createNote} />
                 <hr />
-                <Notes notes={this.props.notes} deleteNote={this.props.deleteNote} danger={this.props.danger} />
+                <Notes notes={this.props.notes} deleteNote={this.props.deleteNote}/>
             </Fragment>
         )
     }
@@ -39,8 +35,7 @@ class Home extends PureComponent {
 
 const mapStateToProps = (state) => {
     return {
-        notes: state.fireBaseState.notes,
-        danger: state.fireBaseState.danger,
+        notes: state.fireBaseState.notes
     }
 }
 

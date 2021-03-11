@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, { Component} from "react";
 import { connect } from "react-redux";
 import { compose } from "redux";
 import "./timer.css";
 import { PlayCircleOutlined, PauseCircleOutlined, UndoOutlined } from '@ant-design/icons';
 import { fetchNotes, resetTimer, resumeTimer, stopTimer } from '../../redux/firebaseReducer'
-import { Notes } from "../Notes";
 
 class Stopwatch extends Component {
   state = {
@@ -14,14 +13,15 @@ class Stopwatch extends Component {
     note: this.props.note,
   };
 
+
   startTimer = () => {
     this.props.resumeTimer(this.state.note.id)
-
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,
       timerStart: Date.now() - this.state.timerTime
     });
+    this.props.setNotes()
     this.timer = setInterval(() => {
       this.setState({
         timerTime: Date.now() - this.state.timerStart
@@ -34,6 +34,7 @@ class Stopwatch extends Component {
     this.setState({ timerOn: false });
     clearInterval(this.timer);
     this.props.SetTimerValue(this.state.note.id, this.state.timerTime)
+    this.props.setNotes()
   };
 
   resetTimer = () => {
@@ -42,6 +43,7 @@ class Stopwatch extends Component {
       timerStart: 0,
       timerTime: 0
     });
+    this.props.setNotes()
   };
 
   render() {
@@ -57,10 +59,10 @@ class Stopwatch extends Component {
         </div>
         <div className="Stopwatch-btns">
           {this.state.timerOn === false && this.state.timerTime === 0 && (
-            <PlayCircleOutlined style={{ fontSize: '18px', marginBottom:'1', color: '#000' }} onClick={this.startTimer} />
+            <PlayCircleOutlined style={{ fontSize: '18px', marginBottom: '1', color: '#000' }} onClick={this.startTimer} />
           )}
           {this.state.timerOn === true && (
-            <PauseCircleOutlined style={{ fontSize: '18px',marginLeft: "auto", marginBottom: '1', color: '#000' }} onClick={this.stopTimer} />
+            <PauseCircleOutlined style={{ fontSize: '18px', marginLeft: "auto", marginBottom: '1', color: '#000' }} onClick={this.stopTimer} />
           )}
           {this.state.timerOn === false && this.state.timerTime > 0 && (
             <PlayCircleOutlined style={{ fontSize: '18px', marginBottom: '1', color: '#000' }} onClick={this.startTimer} />
@@ -80,4 +82,4 @@ let mapStateToProps = (state) => {
   }
 }
 
-export default compose(connect(mapStateToProps, {setNotes:  fetchNotes, SetTimerValue: stopTimer, resumeTimer: resumeTimer, resetTimer: resetTimer }))(Stopwatch);
+export default compose(connect(mapStateToProps, { setNotes: fetchNotes, SetTimerValue: stopTimer, resumeTimer: resumeTimer, resetTimer: resetTimer }))(Stopwatch);
