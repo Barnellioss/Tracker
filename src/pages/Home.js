@@ -19,7 +19,7 @@ class Home extends PureComponent {
 
 
     componentDidUpdate(prevProps, prevState) {
-        if (this.state != prevState && this.props != prevProps) {
+        if (this.props != prevProps) {
             this.props.setNotes()
         }
     }
