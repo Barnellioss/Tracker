@@ -16,12 +16,12 @@ class Stopwatch extends Component {
 
   startTimer = () => {
     this.props.resumeTimer(this.state.note.id)
+    setTimeout(()=> {this.props.setNotes()}, 500)
     this.setState({
       timerOn: true,
       timerTime: this.state.timerTime,
       timerStart: Date.now() - this.state.timerTime
     });
-    this.props.setNotes()
     this.timer = setInterval(() => {
       this.setState({
         timerTime: Date.now() - this.state.timerStart
@@ -34,7 +34,7 @@ class Stopwatch extends Component {
     this.setState({ timerOn: false });
     clearInterval(this.timer);
     this.props.SetTimerValue(this.state.note.id, this.state.timerTime)
-    this.props.setNotes()
+    setTimeout(()=> {this.props.setNotes()}, 500)
   };
 
   resetTimer = () => {
@@ -43,7 +43,7 @@ class Stopwatch extends Component {
       timerStart: 0,
       timerTime: 0
     });
-    this.props.setNotes()
+    setTimeout(()=> {this.props.setNotes()}, 500)
   };
 
   render() {

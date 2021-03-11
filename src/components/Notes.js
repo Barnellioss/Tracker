@@ -20,7 +20,7 @@ export const Notes = React.memo(({ notes, deleteNote }) => {
             renderItem={note => (
                 <List.Item className='note note-enter-active'>
                     <div className="paragraph">
-                        {!note.startStop[0].stopped ?
+                        {note.startStop[0].stopped ?
                             <List.Item.Meta
                                 className="list-group-item"
                                 title={<p style={{ color: '#000' }}>{note.title}</p>}
